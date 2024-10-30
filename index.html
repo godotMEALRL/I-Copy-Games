@@ -76,13 +76,91 @@
     
     <h1>Proxies are <span style="color: #008000;">below <span> !!!</h1>
     <p> </p>
-    <button onclick="window.location.href = 'https://gogo-test-gamma.vercel.app/';">Iframe Proxy</button>
-    <button onclick="window.location.href = 'https://browser.rammerhead.org/';">Rammerhead</button>
-    <h2>Other Pages</h2>
-    <p> </p>
-    <button onclick="window.location.href = 'home.html';">HOME</button>
-    <p> </p>
-    <button onclick="window.location.href = 'games.html';">GAMES</button>
-    <p> </p>
-    <button onclick="window.location.href = 'chat.html';">CHAT</button>
-    <p> </p>
+    <iframe id="game-iframe" src="https://rammerhead.org" title="Game"></iframe>
+    <script>
+        // Function to toggle mute for the game iframe
+        function toggleMute() {
+            const muteButton = document.querySelector('.mute-button');
+            const iframe = document.getElementById('game-iframe');
+
+            let isMuted = muteButton.innerText === "Mute";
+            iframe.contentWindow.postMessage({ action: isMuted ? 'mute' : 'unmute' }, '*');
+            muteButton.innerText = isMuted ? "Unmute" : "Mute";
+        }
+
+        // Function to toggle fullscreen for the game iframe
+        function toggleFullscreen() {
+            const iframe = document.getElementById('game-iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        // Call askForName on page load
+        window.onload = function() {
+            askForName();
+            loadIframeState(); // Load the saved iframe state
+            loadGameState(); // Load the game state
+        };
+
+        // Save iframe state on page reload/close
+        window.onbeforeunload = function() {
+            saveIframeState(); // Save the iframe state
+        };
+
+        // Game state management
+        let gameState = {
+            level: 1,
+            score: 0
+        };
+
+        // Function to save the game state to localStorage
+        function saveGameState() {
+            localStorage.setItem('gameState', JSON.stringify(gameState));
+            console.log('Game state saved:', gameState);
+        }
+
+        // Function to load the game state from localStorage
+        function loadGameState() {
+            let savedState = localStorage.getItem('gameState');
+            if (savedState) {
+                gameState = JSON.parse(savedState);
+                console.log('Loaded game state:', gameState);
+            } else {
+                console.log('No saved game state found.');
+            }
+        }
+
+        // Function to save iframe state
+        function saveIframeState() {
+            let iframe = document.querySelector("iframe[src='https://browser.rammerhead.org/']");
+            if (iframe) {
+                sessionStorage.setItem('rammerheadState', iframe.src);
+            }
+        }
+
+        // Function to load iframe state
+        function loadIframeState() {
+            let savedIframeState = sessionStorage.getItem('rammerheadState');
+            let iframe = document.querySelector("iframe[src='https://browser.rammerhead.org/']");
+            if (savedIframeState && iframe) {
+                iframe.src = savedIframeState;
+                console.log('Restored iframe state:', savedIframeState);
+            }
+        }
+
+        // Simulate gameplay function
+        function playGame() {
+            gameState.score += 10; // Example of gameplay
+            console.log('Playing game, current score:', gameState.score);
+            saveGameState(); // Save game state after gameplay
+        }
+    </script>
+
+
