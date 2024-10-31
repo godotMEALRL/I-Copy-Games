@@ -78,30 +78,6 @@
     <p> </p>
     <iframe id="game-iframe" src="https://easyfun.gg" width="750" height="650"title="Game"></iframe>
     <script>
-        // Function to toggle mute for the game iframe
-        function toggleMute() {
-            const muteButton = document.querySelector('.mute-button');
-            const iframe = document.getElementById('game-iframe');
-
-            let isMuted = muteButton.innerText === "Mute";
-            iframe.contentWindow.postMessage({ action: isMuted ? 'mute' : 'unmute' }, '*');
-            muteButton.innerText = isMuted ? "Unmute" : "Mute";
-        }
-
-        // Function to toggle fullscreen for the game iframe
-        function toggleFullscreen() {
-            const iframe = document.getElementById('game-iframe');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) {
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
-            }
-        }
-
         // Call askForName on page load
         window.onload = function() {
             askForName();
@@ -139,16 +115,16 @@
 
         // Function to save iframe state
         function saveIframeState() {
-            let iframe = document.querySelector("iframe[src='https://browser.rammerhead.org/']");
+            let iframe = document.querySelector("iframe[src='https://easyfun.gg']");
             if (iframe) {
-                sessionStorage.setItem('rammerheadState', iframe.src);
+                sessionStorage.setItem('easyfunState', iframe.src);
             }
         }
 
         // Function to load iframe state
         function loadIframeState() {
-            let savedIframeState = sessionStorage.getItem('rammerheadState');
-            let iframe = document.querySelector("iframe[src='https://browser.rammerhead.org/']");
+            let savedIframeState = sessionStorage.getItem('easyfunState');
+            let iframe = document.querySelector("iframe[src='https://easyfun.gg']");
             if (savedIframeState && iframe) {
                 iframe.src = savedIframeState;
                 console.log('Restored iframe state:', savedIframeState);
