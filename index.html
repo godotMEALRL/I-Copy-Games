@@ -22,11 +22,6 @@
             width: 65%;
             height: 550px;
         }
-        #game-iframe {
-            width: 100%;
-            height: 300%;
-            border: none;
-        }
         #toggleButton {
             position: fixed;
             top: 10px;
@@ -76,67 +71,4 @@
     
     <h1>Proxies are <span style="color: #008000;">below <span> !!!</h1>
     <p> </p>
-    <iframe id="game-iframe" src="https://easyfun.gg" width="750" height="650"title="Game"></iframe>
-    <script>
-        // Call askForName on page load
-        window.onload = function() {
-            askForName();
-            loadIframeState(); // Load the saved iframe state
-            loadGameState(); // Load the game state
-        };
-
-        // Save iframe state on page reload/close
-        window.onbeforeunload = function() {
-            saveIframeState(); // Save the iframe state
-        };
-
-        // Game state management
-        let gameState = {
-            level: 1,
-            score: 0
-        };
-
-        // Function to save the game state to localStorage
-        function saveGameState() {
-            localStorage.setItem('gameState', JSON.stringify(gameState));
-            console.log('Game state saved:', gameState);
-        }
-
-        // Function to load the game state from localStorage
-        function loadGameState() {
-            let savedState = localStorage.getItem('gameState');
-            if (savedState) {
-                gameState = JSON.parse(savedState);
-                console.log('Loaded game state:', gameState);
-            } else {
-                console.log('No saved game state found.');
-            }
-        }
-
-        // Function to save iframe state
-        function saveIframeState() {
-            let iframe = document.querySelector("iframe[src='https://easyfun.gg']");
-            if (iframe) {
-                sessionStorage.setItem('easyfunState', iframe.src);
-            }
-        }
-
-        // Function to load iframe state
-        function loadIframeState() {
-            let savedIframeState = sessionStorage.getItem('easyfunState');
-            let iframe = document.querySelector("iframe[src='https://easyfun.gg']");
-            if (savedIframeState && iframe) {
-                iframe.src = savedIframeState;
-                console.log('Restored iframe state:', savedIframeState);
-            }
-        }
-
-        // Simulate gameplay function
-        function playGame() {
-            gameState.score += 10; // Example of gameplay
-            console.log('Playing game, current score:', gameState.score);
-            saveGameState(); // Save game state after gameplay
-        }
-    </script>
-
-
+    <iframe src="https://easyfun.gg" width="750" height="650"title="Game"></iframe>
