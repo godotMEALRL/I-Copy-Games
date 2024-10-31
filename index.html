@@ -76,4 +76,25 @@
     
     <h1>Request <span style="color: #008000;">Website <span> Here!</h1>
     <p> </p>
-    <iframe id="easyfun"src="https://easyfun.gg" width="1300" height="550"title="Game"></iframe>
+    <html>
+
+    <head>
+    </head>
+    
+    <body>
+        <button onclick="openGame()">EasyFun</button>
+        <script>
+            function openGame() {
+    var win = window.open()
+    var url = "https://easyfun.gg"
+    var iframe = win.document.createElement('iframe')
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
+    iframe.style.border = "none";
+    iframe.src = url
+    win.document.body.appendChild(iframe)
+    }
+        </script>
+    </body>
+    
+    </html>
